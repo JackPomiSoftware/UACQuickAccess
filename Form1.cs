@@ -20,6 +20,34 @@ namespace UAC_Fast_Access
             RegistryKey InitKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System");
 
             //////////
+            // Check if User elevation is disabled
+            //////////
+
+            if (InitKey.GetValue("ConsentPromptBehaviorUser").ToString() == "1" || InitKey.GetValue("ConsentPromptBehaviorUser").ToString() == "3")
+            {
+                checkNoElev.Checked = false;
+            }
+
+            if (InitKey.GetValue("ConsentPromptBehaviorUser").ToString() == "0")
+            {
+                checkNoElev.Checked = true;
+            }
+
+            //////////
+            // Check if signed apps only
+            //////////
+
+            if (InitKey.GetValue("ValidateAdminCodeSignatures").ToString() == "1")
+            {
+                checkSign.Checked = true;
+            }
+
+            if (InitKey.GetValue("ValidateAdminCodeSignatures").ToString() == "0")
+            {
+                checkSign.Checked = false;
+            }
+
+            //////////
             // Check if LUA is off
             //////////
 
@@ -38,6 +66,26 @@ namespace UAC_Fast_Access
                 labelL2T.Visible = false;
                 labelL3.Visible = false;
                 labelL3T.Visible = false;
+
+                if (InitKey.GetValue("ConsentPromptBehaviorAdmin").ToString() == "0" && InitKey.GetValue("PromptOnSecureDesktop").ToString() == "0")
+                {
+                    Slider.Value = 0;
+                }
+
+                if (InitKey.GetValue("ConsentPromptBehaviorAdmin").ToString() == "5" && InitKey.GetValue("PromptOnSecureDesktop").ToString() == "0")
+                {
+                    Slider.Value = 1;
+                }
+
+                if (InitKey.GetValue("ConsentPromptBehaviorAdmin").ToString() == "5" && InitKey.GetValue("PromptOnSecureDesktop").ToString() == "1")
+                {
+                    Slider.Value = 2;
+                }
+
+                if (InitKey.GetValue("ConsentPromptBehaviorAdmin").ToString() == "2" && InitKey.GetValue("PromptOnSecureDesktop").ToString() == "1")
+                {
+                    Slider.Value = 3;
+                }
             }
 
             if (InitKey.GetValue("EnableLUA").ToString() == "1")
@@ -156,9 +204,50 @@ namespace UAC_Fast_Access
             buttonApply2.Enabled = true;
         }
 
+        private void checkNoElev_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonApply2.Enabled = true;
+        }
+
+        private void checkSign_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonApply2.Enabled = true;
+        }
+
         private void buttonApply2_Click(object sender, EventArgs e)
         {
             RegistryKey LUAKey = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System");
+
+            //////////
+            // Disable elevation
+            //////////
+
+            if (checkNoElev.Checked == true)
+            {
+                LUAKey.SetValue("ConsentPromptBehaviorUser", 0);
+            }
+            if (checkNoElev.Checked == false)
+            {
+                LUAKey.SetValue("ConsentPromptBehaviorUser", 3);
+            }
+
+            //////////
+            // Only signed
+            //////////
+
+            if (checkSign.Checked == true)
+            {
+                LUAKey.SetValue("ValidateAdminCodeSignatures", 1);
+            }
+            if (checkSign.Checked == false)
+            {
+                LUAKey.SetValue("ValidateAdminCodeSignatures", 0);
+            }
+
+            //////////
+            // Disable completely
+            //////////
+
             if (checkLUA.Checked == true)
             {
                 LUAKey.SetValue("EnableLUA", 0);

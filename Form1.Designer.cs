@@ -47,6 +47,8 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.Slider = new System.Windows.Forms.TrackBar();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.checkSign = new System.Windows.Forms.CheckBox();
+            this.checkNoElev = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.checkLUA = new System.Windows.Forms.CheckBox();
             this.linkHelp2 = new System.Windows.Forms.LinkLabel();
@@ -149,9 +151,9 @@
             this.labelL3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelL3.Location = new System.Drawing.Point(116, 8);
             this.labelL3.Name = "labelL3";
-            this.labelL3.Size = new System.Drawing.Size(171, 13);
+            this.labelL3.Size = new System.Drawing.Size(267, 13);
             this.labelL3.TabIndex = 25;
-            this.labelL3.Text = "Level 3: UAC is fully enabled";
+            this.labelL3.Text = "Level 3: User Account Control is fully enabled";
             this.labelL3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelL2T
@@ -300,6 +302,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.checkSign);
+            this.tabPage3.Controls.Add(this.checkNoElev);
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Controls.Add(this.checkLUA);
             this.tabPage3.Controls.Add(this.linkHelp2);
@@ -312,11 +316,34 @@
             this.tabPage3.Text = "Advanced Settings";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // checkSign
+            // 
+            this.checkSign.AutoSize = true;
+            this.checkSign.Location = new System.Drawing.Point(8, 43);
+            this.checkSign.Name = "checkSign";
+            this.checkSign.Size = new System.Drawing.Size(424, 30);
+            this.checkSign.TabIndex = 24;
+            this.checkSign.Text = "Only allow executables that are signed and validated (WARNING: this concerns this" +
+    " \r\nprogram as well, so you\'ll have to change registry key manually later)";
+            this.checkSign.UseVisualStyleBackColor = true;
+            this.checkSign.CheckedChanged += new System.EventHandler(this.checkSign_CheckedChanged);
+            // 
+            // checkNoElev
+            // 
+            this.checkNoElev.AutoSize = true;
+            this.checkNoElev.Location = new System.Drawing.Point(8, 26);
+            this.checkNoElev.Name = "checkNoElev";
+            this.checkNoElev.Size = new System.Drawing.Size(237, 17);
+            this.checkNoElev.TabIndex = 23;
+            this.checkNoElev.Text = "Disable elevation prompt for non-admin users";
+            this.checkNoElev.UseVisualStyleBackColor = true;
+            this.checkNoElev.CheckedChanged += new System.EventHandler(this.checkNoElev_CheckedChanged);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.DarkRed;
-            this.label4.Location = new System.Drawing.Point(5, 23);
+            this.label4.Location = new System.Drawing.Point(5, 76);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(249, 13);
             this.label4.TabIndex = 22;
@@ -392,7 +419,7 @@
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(281, 122);
+            this.pictureBox3.Location = new System.Drawing.Point(281, 124);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(16, 16);
             this.pictureBox3.TabIndex = 19;
@@ -401,7 +428,7 @@
             // linkSite
             // 
             this.linkSite.AutoSize = true;
-            this.linkSite.Location = new System.Drawing.Point(298, 123);
+            this.linkSite.Location = new System.Drawing.Point(298, 125);
             this.linkSite.Name = "linkSite";
             this.linkSite.Size = new System.Drawing.Size(46, 13);
             this.linkSite.TabIndex = 18;
@@ -412,7 +439,7 @@
             // linkGit
             // 
             this.linkGit.AutoSize = true;
-            this.linkGit.Location = new System.Drawing.Point(349, 123);
+            this.linkGit.Location = new System.Drawing.Point(349, 125);
             this.linkGit.Name = "linkGit";
             this.linkGit.Size = new System.Drawing.Size(93, 13);
             this.linkGit.TabIndex = 17;
@@ -422,12 +449,12 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(0, 61);
+            this.textBox1.Location = new System.Drawing.Point(0, 52);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(439, 60);
+            this.textBox1.Size = new System.Drawing.Size(439, 69);
             this.textBox1.TabIndex = 13;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
@@ -437,11 +464,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(122, 45);
+            this.label1.Location = new System.Drawing.Point(122, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(193, 13);
             this.label1.TabIndex = 12;
-            this.label1.Text = "UAC QuickAccess. Version 1.0.0";
+            this.label1.Text = "UAC QuickAccess. Version 1.1.0";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox2
@@ -450,7 +477,7 @@
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(109, 2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(218, 40);
+            this.pictureBox2.Size = new System.Drawing.Size(218, 30);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 11;
             this.pictureBox2.TabStop = false;
@@ -549,6 +576,8 @@
         private System.Windows.Forms.Label labelL3T;
         private System.Windows.Forms.Label labelL3;
         private System.Windows.Forms.PictureBox warn;
+        private System.Windows.Forms.CheckBox checkNoElev;
+        private System.Windows.Forms.CheckBox checkSign;
     }
 }
 
