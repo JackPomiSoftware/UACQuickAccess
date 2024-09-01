@@ -5,6 +5,8 @@ UAC QuickAccess
 
 UAC QuickAccess is a small software tool that allows you to manage the User Account Control, a feature that prevents user from opening suspicious programs. [Watch preview video.]
 
+WARNING: The program may take up to 10 seconds to load on older systems. The reason is unknown.
+
 ## UAC Settings
 
 Shows standard settings of UAC, similar to those seen in Control Panel.
